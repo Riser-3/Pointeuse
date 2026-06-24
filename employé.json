@@ -1,0 +1,26 @@
+{
+  "entries": {
+    "2026-06-15": {
+      "date": "2026-06-15",
+      "start": "09:00",
+      "end": "18:00",
+      "pauseMinutes": 60,
+      "location": "Studio 4, Paris",
+      "repas": true,
+      "repasComment": "Restaurant avec l'équipe",
+      "peage": true,
+      "peageComment": "12.50€"
+    },
+    "2026-06-16": {
+      "date": "2026-06-16",
+      "start": "10:00",
+      "end": "14:00",
+      "pauseMinutes": 0,
+      "location": "Théâtre municipal",
+      "repas": false,
+      "repasComment": "",
+      "peage": false,
+      "peageComment": ""
+    }
+  }
+}

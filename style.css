@@ -1,0 +1,178 @@
+:root {
+    --bg: #f7f4ef;
+    --card: #fffdf9;
+    --ink: #1f2a37;
+    --brand: #0f766e;
+    --brand-2: #c2410c;
+    --soft: #e8e2d6;
+}
+
+body {
+    background:
+        radial-gradient(circle at 10% 5%, #f4d6a0 0, #f7f4ef 30%),
+        radial-gradient(circle at 90% 0%, #cfe8e6 0, transparent 35%),
+        var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+    min-height: 100vh;
+}
+
+.app-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--soft);
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+    letter-spacing: 0.3px;
+    font-weight: 800;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+.pill {
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.84rem;
+    border: 1px solid var(--soft);
+    background: #fff;
+}
+
+.stat {
+    background: linear-gradient(135deg, #fff, #fbf7ef);
+    border: 1px solid var(--soft);
+    border-radius: 0.9rem;
+    padding: 0.7rem 0.85rem;
+}
+
+.stat strong {
+    font-size: 1.1rem;
+    color: var(--brand);
+}
+
+.nav-pills .nav-link {
+    border-radius: 999px;
+    border: 1px solid #d7ddd6;
+    color: #334155;
+    background: #f8fafc;
+    margin: 0.2rem;
+    white-space: nowrap;
+}
+
+.nav-pills .nav-link.active {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+}
+
+.btn-brand {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+}
+
+.btn-brand:hover {
+    background: #0c5e58;
+    color: #fff;
+}
+
+.btn-accent {
+    background: var(--brand-2);
+    color: #fff;
+    border: none;
+}
+
+.btn-accent:hover {
+    background: #9a3412;
+    color: #fff;
+}
+
+.table thead th {
+    font-size: 0.86rem;
+    white-space: nowrap;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    font-size: 0.93rem;
+}
+
+@media (max-width: 576px) {
+    .app-wrap {
+        padding: 0.7rem;
+    }
+}
+
+/* --- NOUVEAUTES CALENDRIER --- */
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.4rem;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    /* Garantit des cases carrées */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--soft);
+    border-radius: 0.5rem;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--ink);
+    transition: transform 0.1s;
+}
+
+.calendar-day:active {
+    transform: scale(0.95);
+}
+
+.calendar-day.empty {
+    background: transparent;
+    border: none;
+    cursor: default;
+}
+
+/* Style d'un jour où on a travaillé */
+.calendar-day.worked {
+    border-color: var(--brand);
+    background: #f0fdfa;
+    /* Vert très clair */
+    color: var(--brand);
+    font-weight: 700;
+}
+
+/* Style du jour actuel (Aujourd'hui) */
+.calendar-day.today {
+    border: 2px solid var(--brand-2);
+}
+
+/* Le petit texte des heures sous le numéro du jour */
+.calendar-day .hours-badge {
+    font-size: 0.65rem;
+    color: #4b5563;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.text-brand {
+    color: var(--brand);
+}
+
+.bg-brand {
+    background-color: var(--brand);
+}
