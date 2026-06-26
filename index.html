@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pointeuse Travail</title>
+    <title>Pointeuse Calendrier (507h)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
@@ -16,7 +16,6 @@
     <main class="app-wrap">
 
         <div id="view-main">
-
             <section class="card p-3 mb-3">
                 <h1 class="h5 mb-3 text-center title">Mon Suivi d'Heures</h1>
                 <div class="row g-2 text-center">
@@ -62,16 +61,12 @@
                 </div>
             </section>
 
-            <!-- Actions / Exports / Imports -->
             <section class="d-flex flex-wrap gap-2 justify-content-center pb-4">
                 <button id="btnExportJson" class="btn btn-outline-secondary btn-sm">Sauvegarde JSON</button>
-
-                <label for="importJson" class="btn btn-outline-secondary btn-sm mb-0" style="cursor: pointer;">Importer
-                    JSON</label>
+                <label for="importJson" class="btn btn-outline-secondary btn-sm mb-0" style="cursor: pointer;">Importer JSON</label>
                 <input id="importJson" class="d-none" type="file" accept=".json">
-
                 <button id="btnExportCsv" class="btn btn-outline-secondary btn-sm">Export CSV / Excel</button>
-
+                
                 <div class="w-100 mt-2"></div>
                 <button id="btnResetData" class="btn btn-outline-danger btn-sm fw-bold w-100">
                     Remise à zéro (Reset 507h)
@@ -131,7 +126,6 @@
                     </div>
                 </div>
 
-                <!-- Boutons d'action du formulaire restaurés -->
                 <div class="d-grid gap-2 mt-4">
                     <button id="btnSaveDay" class="btn btn-brand btn-lg">Enregistrer cette journée</button>
                     <button id="btnDeleteDay" class="btn btn-outline-danger">Supprimer la saisie</button>
@@ -144,7 +138,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
     <script>
-        // Enregistrement du Service Worker pour le mode hors ligne
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
