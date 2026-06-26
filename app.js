@@ -1,4 +1,5 @@
 const STORE_KEY = "pointeuse_calendrier_v1";
+const STORE_KEY_START = "pointeuse_calendrier_start_v1"; // NOUVEAU : Sauvegarde de la date de reset
 const TARGET_HOURS = 507;
 const TARGET_MINUTES = TARGET_HOURS * 60;
 
@@ -6,7 +7,8 @@ const state = {
     entries: {},
     currentYear: new Date().getFullYear(),
     currentMonth: new Date().getMonth(),
-    selectedDate: null
+    selectedDate: null,
+    countStartDate: null // NOUVEAU : La date à partir de laquelle on compte les 507h
 };
 
 const el = {
@@ -76,6 +78,8 @@ const load = () => {
         try { state.entries = JSON.parse(raw); } 
         catch (e) { state.entries = {}; }
     }
+    // NOUVEAU : On charge la date du marque-page si elle existe
+    state.countStartDate = localStorage.getItem(STORE_KEY_START);
 };
 
 const getStartOfWeek = (date) => {
@@ -86,7 +90,7 @@ const getStartOfWeek = (date) => {
 };
 
 const updateDashboard = () => {
-    let totalAllTime = 0;
+    let totalAllTime = 0; // Ceci sera maintenant le total DEPUIS la date de reset
     let totalMonth = 0;
     let totalWeek = 0;
 
@@ -99,12 +103,16 @@ const updateDashboard = () => {
     const endOfWeek = getIsoDate(endOfWeekObj);
 
     Object.values(state.entries).forEach(entry => {
-        // PROTECTION ANTI-CRASH : Ignore les données corrompues sans date
         if (!entry || !entry.date) return;
 
         const worked = calculateWorkedMinutes(entry);
-        totalAllTime += worked;
 
+        // NOUVEAU : On ajoute au compteur 507h UNIQUEMENT si on est après la date de reset (ou s'il n'y a pas de reset défini)
+        if (!state.countStartDate || entry.date >= state.countStartDate) {
+            totalAllTime += worked;
+        }
+
+        // Le calcul de la semaine et du mois reste normal (basé sur le mois en cours)
         if (entry.date.startsWith(currentIsoMonth)) {
             totalMonth += worked;
         }
@@ -144,7 +152,6 @@ const renderCalendar = () => {
         const dateStr = `${state.currentYear}-${String(state.currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const entry = state.entries[dateStr];
         
-        // PROTECTION ANTI-CRASH pour le rendu visuel
         const isValidEntry = entry && entry.date; 
 
         const dayDiv = document.createElement("div");
@@ -249,7 +256,6 @@ const importJson = (file) => {
     reader.onload = () => {
         try {
             const parsed = JSON.parse(String(reader.result));
-            // SÉCURITÉ : Nettoie automatiquement si le fichier est enveloppé dans "entries"
             const dataToImport = parsed.entries ? parsed.entries : parsed;
             
             if (typeof dataToImport !== "object" || Array.isArray(dataToImport)) throw new Error("Format invalide");
@@ -268,19 +274,29 @@ const importJson = (file) => {
     reader.readAsText(file);
 };
 
+// NOUVELLE FONCTION RESET (Demande une date)
 const resetData = () => {
-    if (confirm("⚠️ ATTENTION : Es-tu sûr de vouloir tout effacer ? (Remise à zéro des 507h)")) {
-        if (confirm("Dernier avertissement : Confirmer la suppression totale de l'historique ?")) {
-            state.entries = {};
-            save();
-            toggleView(true);
+    const today = getIsoDate(new Date());
+    const userDate = prompt("RESET DU COMPTEUR 507h\n\nTes données historiques seront conservées dans le calendrier.\n\nÀ partir de quelle date veux-tu commencer le nouveau calcul des 507h ? (Format AAAA-MM-JJ)", today);
+    
+    if (userDate) {
+        // Vérification de sécurité pour s'assurer que le format tapé est bien AAAA-MM-JJ
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(userDate)) {
+            alert("Erreur : Le format de la date doit exactement être AAAA-MM-JJ (ex: 2026-06-26). Le reset a été annulé.");
+            return;
         }
+        
+        // Enregistre la date de début
+        localStorage.setItem(STORE_KEY_START, userDate);
+        state.countStartDate = userDate;
+        updateDashboard();
+        alert("Compteur réinitialisé ! Le calcul des 507h se fait désormais à partir du " + userDate);
     }
 };
 
 const exportCsv = () => {
     const sortedEntries = Object.values(state.entries)
-        .filter(e => e && e.date) // Évite les bugs à l'export
+        .filter(e => e && e.date)
         .sort((a, b) => a.date.localeCompare(b.date));
     
     if (sortedEntries.length === 0) {
