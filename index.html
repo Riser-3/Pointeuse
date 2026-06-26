@@ -120,10 +120,19 @@
                     </div>
                 </div>
 
-                <div class="d-grid gap-2 mt-4">
-                    <button id="btnSaveDay" class="btn btn-brand btn-lg">Enregistrer cette journée</button>
-                    <button id="btnDeleteDay" class="btn btn-outline-danger">Supprimer la saisie</button>
-                </div>
+                <button id="btnExportJson" class="btn btn-outline-secondary btn-sm">Sauvegarde JSON</button>
+
+                <label for="importJson" class="btn btn-outline-secondary btn-sm mb-0" style="cursor: pointer;">Importer
+                    JSON</label>
+                <input id="importJson" class="d-none" type="file" accept=".json">
+
+                <button id="btnExportCsv" class="btn btn-outline-secondary btn-sm">Export CSV / Excel</button>
+
+                <div class="w-100 mt-2"></div>
+                <button id="btnResetData" class="btn btn-outline-danger btn-sm fw-bold w-100">
+                    Remise à zéro (Reset 507h)
+                </button>
+                
             </section>
         </div>
 
