@@ -176,3 +176,37 @@ body {
 .bg-brand {
     background-color: var(--brand);
 }
+
+/* --- ADAPTATION POUR PETITS ÉCRANS (Ex: Samsung S23, iPhone Mini) --- */
+@media (max-width: 400px) {
+    .app-wrap {
+        padding: 0.5rem;
+        /* Réduit les marges sur les bords de l'écran */
+    }
+
+    .card {
+        padding: 1rem !important;
+        /* Réduit l'espace vide à l'intérieur des blocs */
+    }
+
+    .calendar-grid {
+        gap: 0.15rem;
+        /* Rapproche les cases du calendrier */
+    }
+
+    .calendar-header div {
+        font-size: 0.75rem;
+        /* Réduit la taille des jours (Lun, Mar...) */
+    }
+
+    .calendar-day {
+        font-size: 0.85rem;
+        /* Réduit le chiffre du jour */
+        border-radius: 0.3rem;
+    }
+
+    .calendar-day .hours-badge {
+        font-size: 0.55rem;
+        /* Réduit le petit texte des heures */
+    }
+}

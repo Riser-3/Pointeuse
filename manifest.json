@@ -1,6 +1,6 @@
 {
-  "name": "Pointeuse 507h",
-  "short_name": "507h",
+  "name": "Pointeuse pour le travail",
+  "short_name": "Pointeuse Travail",
   "description": "Suivi des heures et des frais pour l'objectif 507h",
   "start_url": "./index.html",
   "display": "standalone",
