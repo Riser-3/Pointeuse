@@ -115,15 +115,22 @@ body {
 
 /* --- NOUVEAUTES CALENDRIER --- */
 
+/* L'en-tête (Lun, Mar...) devient une grille identique au calendrier */
+.calendar-header {
+    display: grid !important; /* Force la grille sur Bootstrap */
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.4rem;
+}
+
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    /* minmax(0, 1fr) est la clé : empêche la grille d'exploser sur mobile */
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 0.4rem;
 }
 
 .calendar-day {
-    aspect-ratio: 1;
-    /* Garantit des cases carrées */
+    aspect-ratio: 1; /* Garantit des cases carrées */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -135,6 +142,7 @@ body {
     font-size: 0.95rem;
     color: var(--ink);
     transition: transform 0.1s;
+    overflow: hidden; /* Cache ce qui déborde si l'écran est vraiment minuscule */
 }
 
 .calendar-day:active {
@@ -150,8 +158,7 @@ body {
 /* Style d'un jour où on a travaillé */
 .calendar-day.worked {
     border-color: var(--brand);
-    background: #f0fdfa;
-    /* Vert très clair */
+    background: #f0fdfa; /* Vert très clair */
     color: var(--brand);
     font-weight: 700;
 }
@@ -169,44 +176,29 @@ body {
     margin-top: 2px;
 }
 
-.text-brand {
-    color: var(--brand);
-}
+.text-brand { color: var(--brand); }
+.bg-brand { background-color: var(--brand); }
 
-.bg-brand {
-    background-color: var(--brand);
-}
-
-/* --- ADAPTATION POUR PETITS ÉCRANS (Ex: Samsung S23, iPhone Mini) --- */
+/* --- ADAPTATION POUR PETITS ÉCRANS (Ex: Samsung S23) --- */
 @media (max-width: 400px) {
     .app-wrap {
-        padding: 0.5rem;
-        /* Réduit les marges sur les bords de l'écran */
+        padding: 0.4rem; /* Gagne de la place sur les côtés de l'écran */
     }
-
     .card {
-        padding: 1rem !important;
-        /* Réduit l'espace vide à l'intérieur des blocs */
+        padding: 0.8rem !important; /* Gagne de la place dans la carte */
     }
-
+    .calendar-header {
+        gap: 0.2rem;
+        font-size: 0.75rem !important;
+    }
     .calendar-grid {
-        gap: 0.15rem;
-        /* Rapproche les cases du calendrier */
+        gap: 0.2rem; /* Réduit l'espace entre les cases */
     }
-
-    .calendar-header div {
-        font-size: 0.75rem;
-        /* Réduit la taille des jours (Lun, Mar...) */
-    }
-
     .calendar-day {
         font-size: 0.85rem;
-        /* Réduit le chiffre du jour */
         border-radius: 0.3rem;
     }
-
     .calendar-day .hours-badge {
-        font-size: 0.55rem;
-        /* Réduit le petit texte des heures */
+        font-size: 0.55rem; /* Réduit un peu plus les heures pour que ça rentre */
     }
 }
