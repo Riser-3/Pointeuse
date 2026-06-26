@@ -30,5 +30,3 @@ Cahier des charges et contraintes techniques :
 - Objectif cible : Décompte dynamique de 507h jusqu'à 0h.
 
 - Gestion des données : Sauvegarde au format JSON et export des données (format Excel, CSV, etc.).
-
-© ArchLuky et Riser_3
