@@ -1,5 +1,5 @@
-const STORE_KEY = "pointeuse_calendrier_v3";
-const STORE_KEY_START = "pointeuse_calendrier_start_v3"; // NOUVEAU : Sauvegarde de la date de reset
+const STORE_KEY = "pointeuse_calendrier_v4";
+const STORE_KEY_START = "pointeuse_calendrier_start_v4"; // NOUVEAU : Sauvegarde de la date de reset
 const TARGET_HOURS = 507;
 const TARGET_MINUTES = TARGET_HOURS * 60;
 
