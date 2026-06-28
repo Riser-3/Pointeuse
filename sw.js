@@ -1,4 +1,4 @@
-const CACHE_NAME = "pointeuse-travail-v3";
+const CACHE_NAME = "pointeuse-travail-v4";
 
 // Liste de tous les fichiers dont l'application a besoin pour fonctionner hors ligne
 const ASSETS_TO_CACHE = [
